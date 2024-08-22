@@ -13,6 +13,7 @@ pipeline {
                 sh '''
                 pwd
                 /opt/maven/bin/mvn -version
+                /opt/maven/bin/mvn test
                 '''
             }
         }
