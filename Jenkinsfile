@@ -11,7 +11,8 @@ pipeline {
         {
             steps{
                 sh '''
-                mvn test
+                pwd
+                mvn -version
                 '''
             }
         }
