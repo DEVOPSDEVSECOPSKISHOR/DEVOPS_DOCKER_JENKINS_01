@@ -12,7 +12,7 @@ pipeline {
             steps{
                 sh '''
                 pwd
-                mvn -version
+                /opt/maven/bin/mvn -version
                 '''
             }
         }
