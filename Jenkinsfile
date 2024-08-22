@@ -3,8 +3,8 @@ pipeline {
     stages{
         stage('Checkout github Initial repository') {
             steps {
-                  cleanWs()
-                git branch:'main', 'https://github.com/spring-projects/spring-petclinic.git'
+                  cleanWs();
+                git branch:'main', url:'https://github.com/spring-projects/spring-petclinic.git'
             }
         }
     }
