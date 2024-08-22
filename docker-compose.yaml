@@ -1,11 +1,45 @@
+version: '3.8'
+
 services:
   jenkins:
     image: jenkins/jenkins:lts
+    container_name: jenkins
     ports:
       - "8080:8080"
     volumes:
       - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins
+
   ssh-agent:
     image: jenkins/ssh-agent
+    networks:
+      - jenkins
+
+  mavennode:
+    image: maven:3.9.9
+    container_name: mavennode
+    ports:
+      - "8001:8001"
+    volumes:
+      - Maven_home:/usr/share/maven
+    command: mvn --version
+    networks:
+      - jenkins
+
+  ssh-server:
+    build: 
+      context: ./agents # Path to the directory containing the Dockerfile
+    container_name: ssh-server
+    ports:
+      - "22:22"  # Map container port 22 to host port 2222
+    networks:
+      - jenkins
+
+networks:
+  jenkins:
+    driver: bridge
+
 volumes:
   jenkins_home:
+  Maven_home:
