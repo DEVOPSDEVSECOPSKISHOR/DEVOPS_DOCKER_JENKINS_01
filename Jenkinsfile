@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout github Initial repository') {
             steps {
                   cleanWs()
-                git 'https://github.com/spring-projects/spring-petclinic.git'
+                git branch:'main', 'https://github.com/spring-projects/spring-petclinic.git'
             }
         }
     }
