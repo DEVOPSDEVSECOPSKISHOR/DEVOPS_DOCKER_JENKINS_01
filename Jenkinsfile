@@ -17,5 +17,19 @@ pipeline {
                 '''
             }
         }
+        stage('Package Build'){
+            steps{
+                sh '''
+                    /opt/maven/bin/mvn clean install --DskipTests
+                '''
+            }
+        }
+        stage('Trivy Testing'){
+            steps{
+                sh '''
+                    trivy -fs targets/*.war
+                '''
+            }
+        }
     }
 }
