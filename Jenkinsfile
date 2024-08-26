@@ -27,7 +27,7 @@ pipeline {
         stage('Trivy Testing'){
             steps{
                 sh '''
-                    trivy -fs target/spring-petclinic-3.3.0-SNAPSHOT.jar
+                    trivy fs target/spring-petclinic-3.3.0-SNAPSHOT.jar
                 '''
             }
         }
