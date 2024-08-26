@@ -28,7 +28,7 @@ pipeline {
             steps{
                 sh '''
                     trivy fs --format json -o scan_results.json .
-                    trivy convert --format template --template "@contrib/html.tpl" scan_results.json > scan_results.html
+                    trivy convert --format template --template "@/appcontrib/html.tpl" scan_results.json > scan_results.html
                 '''
             }
         }
