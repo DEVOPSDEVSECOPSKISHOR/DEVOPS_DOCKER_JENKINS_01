@@ -32,5 +32,17 @@ pipeline {
                 '''
             }
         }
+        stage('Publish artifact'){
+            steps{
+                publishHTML target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: false,
+            keepAll: true,
+            reportDir: 'coverage',
+            reportFiles: 'scan_results.html',
+            reportName: 'RCov Report'
+          ]
+            }
+        }
     }
 }
