@@ -38,7 +38,7 @@ pipeline {
             allowMissing: false,
             alwaysLinkToLastBuild: false,
             keepAll: true,
-            reportDir: 'coverage',
+            reportDir: '.',
             reportFiles: 'scan_results.html',
             reportName: 'RCov Report'
           ]
