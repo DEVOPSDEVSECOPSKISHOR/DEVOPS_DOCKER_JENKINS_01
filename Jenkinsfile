@@ -27,7 +27,7 @@ pipeline {
         stage('Trivy Testing'){
             steps{
                 sh '''
-                    trivy fs --format json -o scan_results.json target/spring-petclinic-3.3.0-SNAPSHOT.jar
+                    trivy fs --scanners vuln --format json -o scan_results.json target/spring-petclinic-3.3.0-SNAPSHOT.jar
                     trivy convert --format template --template "@/app/contrib/html.tpl" scan_results.json > scan_results.html
                 '''
             }
