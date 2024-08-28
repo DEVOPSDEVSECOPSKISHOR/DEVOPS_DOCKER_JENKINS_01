@@ -35,7 +35,7 @@ pipeline {
         stage('OWASP Dependency check'){
             steps{
                 sh '''
-                    /dependency-check/bin/dependency-check.sh --out . --scan target/
+                    /dependency-check/bin/dependency-check.sh --out . --scan target
                 '''
             }
         }
