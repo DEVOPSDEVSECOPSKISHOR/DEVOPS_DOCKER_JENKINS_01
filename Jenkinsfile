@@ -35,9 +35,17 @@ pipeline {
         stage('OWASP Dependency check'){
             steps{
                 sh '''
-                    /dependency-check/bin/dependency-check.sh --out . --scan target --nvdApiKey 10d1e9f6-bf6a-46b9-9b50-c65660dc484a
+                    /dependency-check/bin/dependency-check.sh --out . --scan target --nvdApiKey 10d1e9f6-bf6a-46b9-9b50-c65660dc484a > 
 
                 '''
+                publishHTML target: [
+            allowMissing: false,
+            alwaysLinkToLastBuild: false,
+            keepAll: true,
+            reportDir: '.',
+            reportFiles: 'dependency-check-report.html',
+            reportName: 'Dependency Report'
+          ]
             }
         }
         stage('Publish artifact'){
