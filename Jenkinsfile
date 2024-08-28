@@ -37,7 +37,7 @@ pipeline {
               
                 sh '''
                     /dependency-check/bin/dependency-check.sh --out . --scan target --nvdApiKey 10d1e9f6-bf6a-46b9-9b50-c65660dc484a 
-                    sed -i '/<html>/a <link rel="stylesheet" href="style.css">' dependency-check-report.html
+                    sed -i '/<html>/a <link rel="stylesheet" href="/app/CSS/style.css">' dependency-check-report.html
                 '''
             }
         }
