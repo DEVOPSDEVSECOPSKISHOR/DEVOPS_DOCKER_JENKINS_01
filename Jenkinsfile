@@ -35,7 +35,7 @@ pipeline {
         stage('OWASP Dependency check'){
             steps{
                 sh '''
-                    /dependency-check/bin/dependency-check.sh --out . --scan target
+                    /dependency-check/bin/dependency-check.sh --out . --scan --apiKey 10d1e9f6-bf6a-46b9-9b50-c65660dc484a  target\
                 '''
             }
         }
