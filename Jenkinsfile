@@ -42,16 +42,15 @@ pipeline {
         }
         stage('publish dependency report'){
             steps{
-                 publishHTML target: [
+                publishHTML target: [
             allowMissing: false,
             alwaysLinkToLastBuild: false,
             keepAll: true,
             reportDir: '.',
             reportFiles: 'dependency-check-report.html',
             reportName: 'Dependency Report'
-            
         ]
-        }
+            }
         }
         stage('Publish artifact'){
             steps{
