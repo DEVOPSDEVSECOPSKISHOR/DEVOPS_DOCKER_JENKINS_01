@@ -38,7 +38,7 @@ pipeline {
                 sh '''
                     /dependency-check/bin/dependency-check.sh --out . --scan target --nvdApiKey 10d1e9f6-bf6a-46b9-9b50-c65660dc484a
                     cp -r /app/CSS/style.css .
-                    sed -i '/<html>/a <link rel="stylesheet" href="style.css">' dependency-check-report.html
+                    sed -i '/<html>/a <link rel="stylesheet" href="style.css"> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">' dependency-check-report.html
                 '''
             }
         }
