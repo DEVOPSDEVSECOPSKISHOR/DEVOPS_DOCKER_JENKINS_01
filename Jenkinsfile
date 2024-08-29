@@ -4,7 +4,7 @@ pipeline {
         stage('Checkout github Initial repository') {
             steps {
                   cleanWs();
-                git branch:'master', url:'https://github.com/rajsingha/SpringMVC-RESTful-Web-Services.git'
+                git branch:'main', url:'https://github.com/spring-projects/spring-petclinic.git'
             }
         }
         stage('Unit Testing')
