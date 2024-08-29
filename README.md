@@ -17,19 +17,20 @@ Checking Build Status:
 
 After the build process finishes, the script checks the exit code. If the exit code is 0, the build is considered successful, and a success message is displayed. Otherwise, an error message is displayed, indicating the build has failed along with the corresponding exit code.
 powershell
-Copy code
-Write-Host "Build process finished with exit code: $($process.ExitCode)"
 
+
+Write-Host "Build process finished with exit code: $($process.ExitCode)"
 if ($process.ExitCode -eq 0) {
     Write-Host "Build completed successfully."
 } else {
     Write-Host "Build failed with exit code $($process.ExitCode)."
 }
+
 Retrieving Jenkins Initial Admin Password:
 
 The script then attempts to retrieve the initial admin password for Jenkins. A Start-Sleep cmdlet is used to pause the script for 10 seconds, giving Jenkins enough time to generate the password. After the pause, the script runs a docker exec command to access the Jenkins container and read the password from the initialAdminPassword file.
 powershell
-Copy code
+
 Write-Host "Attempting to retrieve initial admin password..."
 
 Start-Sleep -Seconds 10
@@ -44,7 +45,7 @@ Base Image:
 
 The Dockerfile starts with the ubuntu:latest image as the base. You can replace this with any other base image that suits your needs.
 dockerfile
-Copy code
+
 FROM ubuntu:latest
 Installing SSH Server:
 
@@ -64,13 +65,13 @@ Permitting Root Login via SSH:
 
 By default, root login via SSH might be disabled or restricted. This step modifies the SSH configuration file (/etc/ssh/sshd_config) to allow root login.
 dockerfile
-Copy code
+
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 Enabling Password Authentication:
 
 This step ensures that password authentication is enabled in the SSH server configuration. This is necessary if you plan to log in using a username and password.
 dockerfile
-Copy code
+
 RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 Exposing SSH Port:
 
@@ -89,6 +90,6 @@ Starting SSH Service:
 
 Finally, the SSH service is started in the container, running in the foreground with the -D option to keep the container alive.
 dockerfile
-Copy code
+
 CMD ["/usr/sbin/sshd", "-D"]
 This Dockerfile sets up a basic SSH server within a Docker container, allowing you to connect to the container remotely via SSH.
