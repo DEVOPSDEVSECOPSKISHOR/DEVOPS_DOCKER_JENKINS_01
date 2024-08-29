@@ -8,31 +8,36 @@ This PowerShell script is designed to automate the process of setting up a Docke
 
 ### Step-by-Step Breakdown of the Script:
 
-#### 1. Starting Docker Containers
+Starting Docker Containers:
 
 The script starts by running the Docker containers in detached mode using the `docker-compose up -d` command. This ensures that all services defined in the `docker-compose.yml` file are up and running in the background.
 
 ```powershell
 docker-compose up -d
+Building Docker Containers:
 
 2. Building Docker Containers
 Next, the script initiates the build process for the Docker containers. The Start-Process cmdlet is used to run the docker-compose build command. The -Wait parameter ensures that the script waits for the build process to complete before proceeding. The -PassThru parameter captures the exit code of the build process, which is crucial for determining if the build was successful.
 
 $process = Start-Process -FilePath "docker-compose" -ArgumentList "build" -Wait -PassThru
+Checking Build Status:
 
 3. Checking Build Status
 After the build process finishes, the script checks the exit code. If the exit code is 0, the build is considered successful, and a success message is displayed. Otherwise, an error message is displayed, indicating the build has failed along with the corresponding exit code.
-
+powershell
+Copy code
 Write-Host "Build process finished with exit code: $($process.ExitCode)"
 if ($process.ExitCode -eq 0) {
     Write-Host "Build completed successfully."
 } else {
     Write-Host "Build failed with exit code $($process.ExitCode)."
 }
+Retrieving Jenkins Initial Admin Password:
 
 4. Retrieving Jenkins Initial Admin Password
 The script then attempts to retrieve the initial admin password for Jenkins. A Start-Sleep cmdlet is used to pause the script for 10 seconds, giving Jenkins enough time to generate the password. After the pause, the script runs a docker exec command to access the Jenkins container and read the password from the initialAdminPassword file.
-
+powershell
+Copy code
 Write-Host "Attempting to retrieve initial admin password..."
 
 Start-Sleep -Seconds 10
@@ -49,7 +54,8 @@ This Dockerfile creates a Docker container with an SSH server installed, allowin
 Step-by-Step Breakdown of the Dockerfile:
 1. Base Image
 The Dockerfile starts with the ubuntu:latest image as the base. You can replace this with any other base image that suits your needs.
-
+dockerfile
+Copy code
 FROM ubuntu:latest
 
 
@@ -70,12 +76,14 @@ RUN echo 'root:Admin@123' | chpasswd
 
 4. Permitting Root Login via SSH
 By default, root login via SSH might be disabled or restricted. This step modifies the SSH configuration file (/etc/ssh/sshd_config) to allow root login.
-
+dockerfile
+Copy code
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 5. Enabling Password Authentication
 This step ensures that password authentication is enabled in the SSH server configuration. This is necessary if you plan to log in using a username and password.
-
+dockerfile
+Copy code
 RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
 
@@ -94,7 +102,8 @@ RUN chmod 0755 /var/run/sshd
 
 8. Starting SSH Service
 Finally, the SSH service is started in the container, running in the foreground with the -D option to keep the container alive.
-
+dockerfile
+Copy code
 CMD ["/usr/sbin/sshd", "-D"]
 
 
