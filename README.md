@@ -1,24 +1,22 @@
 PowerShell Script for Docker Environment Setup and Build
 This PowerShell script is designed to automate the process of setting up a Docker environment, building the Docker containers, and retrieving the initial Jenkins admin password. Below is a step-by-step breakdown of the script:
 
-Starting Docker Containers:
+> Starting Docker Containers:
 
 The script starts by running the Docker containers in detached mode using the docker-compose up -d command. This ensures that all services defined in the docker-compose.yml file are up and running in the background.
 powershell
 Copy code
 docker-compose up -d
-Building Docker Containers:
+> Building Docker Containers:
 
 Next, the script initiates the build process for the Docker containers. The Start-Process cmdlet is used to run the docker-compose build command. The -Wait parameter ensures that the script waits for the build process to complete before proceeding. The -PassThru parameter captures the exit code of the build process, which is crucial for determining if the build was successful.
 powershell
 Copy code
 $process = Start-Process -FilePath "docker-compose" -ArgumentList "build" -Wait -PassThru
-Checking Build Status:
+> Checking Build Status:
 
 After the build process finishes, the script checks the exit code. If the exit code is 0, the build is considered successful, and a success message is displayed. Otherwise, an error message is displayed, indicating the build has failed along with the corresponding exit code.
-powershell
-
-
+powershell.
 Write-Host "Build process finished with exit code: $($process.ExitCode)"
 if ($process.ExitCode -eq 0) {
     Write-Host "Build completed successfully."
@@ -26,7 +24,7 @@ if ($process.ExitCode -eq 0) {
     Write-Host "Build failed with exit code $($process.ExitCode)."
 }
 
-Retrieving Jenkins Initial Admin Password:
+> Retrieving Jenkins Initial Admin Password:
 
 The script then attempts to retrieve the initial admin password for Jenkins. A Start-Sleep cmdlet is used to pause the script for 10 seconds, giving Jenkins enough time to generate the password. After the pause, the script runs a docker exec command to access the Jenkins container and read the password from the initialAdminPassword file.
 powershell
