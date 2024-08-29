@@ -15,7 +15,7 @@ The script starts by running the Docker containers in detached mode using the `d
 ```Dockerfile
 docker-compose up -d
 ```
-#Building Docker Containers:
+# Building Docker Containers:
 
 ## 2. Building Docker Containers
 Next, the script initiates the build process for the Docker containers. The Start-Process cmdlet is used to run the docker-compose build command. The -Wait parameter ensures that the script waits for the build process to complete before proceeding. The -PassThru parameter captures the exit code of the build process, which is crucial for determining if the build was successful.
